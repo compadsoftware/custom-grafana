@@ -91,9 +91,9 @@ function PublicDashboardSceneRenderer({ model }: SceneComponentProps<DashboardSc
     <Page layout={PageLayoutType.Custom} className={styles.page} data-testid={selectors.page}>
       <div className={styles.controls}>
         <Stack alignItems="center">
-          <div className={styles.iconTitle}>
+          {/* <div className={styles.iconTitle}>
             <Icon name="grafana" size="lg" aria-hidden />
-          </div>
+          </div> */}
           <span className={styles.title}>{title}</span>
         </Stack>
         {!hideTimeControls && (
