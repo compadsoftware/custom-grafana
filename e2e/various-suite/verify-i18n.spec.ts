@@ -40,7 +40,7 @@ describe('Verify i18n', () => {
   // map between languages in the language picker and the corresponding translation of the 'Language' label
   const languageMap: Record<string, string> = {
     Deutsch: 'Sprache',
-    Dutch: 'Taal',
+    Netherlands: 'Taal',
     English: 'Language',
     Español: 'Idioma',
     Français: 'Langue',

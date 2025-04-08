@@ -5,7 +5,7 @@ export const ENGLISH_US = 'en-US';
 export const FRENCH_FRANCE = 'fr-FR';
 export const SPANISH_SPAIN = 'es-ES';
 export const GERMAN_GERMANY = 'de-DE';
-export const NETHERLANDS_DUTCH = 'nl-DU';
+export const DUTCH_NETHERLANDS = 'nl-NL';
 export const BRAZILIAN_PORTUGUESE = 'pt-BR';
 export const CHINESE_SIMPLIFIED = 'zh-Hans';
 export const PSEUDO_LOCALE = 'pseudo';
@@ -59,10 +59,10 @@ export const LANGUAGES: LanguageDefinition[] = [
   },
 
   {
-    code: NETHERLANDS_DUTCH,
-    name: 'Dutch',
+    code: DUTCH_NETHERLANDS,
+    name: 'Netherlands',
     loader: {
-      grafana: () => import('../../../locales/nl-DU/grafana.json'),
+      grafana: () => import('../../../locales/nl-NL/grafana.json'),
     },
   },
 
