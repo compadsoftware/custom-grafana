@@ -60,7 +60,7 @@ export const LANGUAGES: LanguageDefinition[] = [
 
   {
     code: DUTCH_NETHERLANDS,
-    name: 'Netherlands',
+    name: 'Nederlands',
     loader: {
       grafana: () => import('../../../locales/nl-NL/grafana.json'),
     },

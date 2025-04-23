@@ -238,8 +238,8 @@ export function reduceField(options: ReduceFieldOptions): FieldCalcs {
 export const fieldReducers = new Registry<FieldReducerInfo>(() => [
   {
     id: ReducerID.lastNotNull,
-    name: 'Last *',
-    description: 'Last non-null value (also excludes NaNs)',
+    name: 'Laatste *',
+    description: 'Laatste niet-nulwaarde (sluit ook NaNs uit)',
     standard: true,
     aliasIds: ['current'],
     reduce: calculateLastNotNull,
@@ -247,15 +247,15 @@ export const fieldReducers = new Registry<FieldReducerInfo>(() => [
   },
   {
     id: ReducerID.last,
-    name: 'Last',
-    description: 'Last value',
+    name: 'Laatste',
+    description: 'Laatste waarde',
     standard: true,
     reduce: calculateLast,
     preservesUnits: true,
   },
   {
     id: ReducerID.firstNotNull,
-    name: 'First *',
+    name: 'Eerste *',
     description: 'First non-null value (also excludes NaNs)',
     standard: true,
     reduce: calculateFirstNotNull,
@@ -263,8 +263,8 @@ export const fieldReducers = new Registry<FieldReducerInfo>(() => [
   },
   {
     id: ReducerID.first,
-    name: 'First',
-    description: 'First Value',
+    name: 'Eerste',
+    description: 'Eerste Waarde',
     standard: true,
     reduce: calculateFirst,
     preservesUnits: true,

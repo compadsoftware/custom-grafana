@@ -322,7 +322,7 @@ export function ExploreToolbar({ exploreId, onChangeTime, onContentOutlineToogle
             onIntervalChanged={onChangeRefreshInterval}
             value={refreshInterval}
             isLoading={loading}
-            text={showSmallTimePicker ? undefined : refreshPickerLabel}
+            text="Vernieuwen"
             tooltip={showSmallTimePicker ? refreshPickerLabel : undefined}
             intervals={contextSrv.getValidIntervals(defaultIntervals)}
             isLive={isLive}

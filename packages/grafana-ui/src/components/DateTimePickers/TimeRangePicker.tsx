@@ -150,7 +150,7 @@ export function TimeRangePicker(props: TimeRangePickerProps) {
     <ButtonGroup className={styles.container}>
       {hasAbsolute && (
         <ToolbarButton
-          aria-label={t('time-picker.range-picker.backwards-time-aria-label', 'Move time range backwards')}
+          aria-label={t('time-picker.range-picker.backwards-time-aria-label', 'Tijdbereik achteruit verplaatsen')}
           variant={variant}
           onClick={onMoveBackward}
           icon="angle-left"
@@ -167,7 +167,7 @@ export function TimeRangePicker(props: TimeRangePickerProps) {
       >
         <ToolbarButton
           data-testid={selectors.components.TimePicker.openButton}
-          aria-label={t('time-picker.range-picker.current-time-selected', 'Time range selected: {{currentTimeRange}}', {
+          aria-label={t('time-picker.range-picker.current-time-selected', 'Geselecteerde tijdsbereik: {{currentTimeRange}}', {
             currentTimeRange,
           })}
           aria-controls="TimePickerContent"
@@ -209,7 +209,7 @@ export function TimeRangePicker(props: TimeRangePickerProps) {
 
       {hasAbsolute && (
         <ToolbarButton
-          aria-label={t('time-picker.range-picker.forwards-time-aria-label', 'Move time range forwards')}
+          aria-label={t('time-picker.range-picker.forwards-time-aria-label', 'Tijdbereik vooruit verplaatsen')}
           onClick={onMoveForward}
           icon="angle-right"
           narrow
@@ -220,7 +220,7 @@ export function TimeRangePicker(props: TimeRangePickerProps) {
 
       <Tooltip content={ZoomOutTooltip} placement="bottom">
         <ToolbarButton
-          aria-label={t('time-picker.range-picker.zoom-out-button', 'Zoom out time range')}
+          aria-label={t('time-picker.range-picker.zoom-out-button', 'Uitzoomen op tijdbereik')}
           onClick={onZoom}
           icon="search-minus"
           type="button"
@@ -236,7 +236,7 @@ TimeRangePicker.displayName = 'TimeRangePicker';
 const ZoomOutTooltip = () => (
   <>
     <Trans i18nKey="time-picker.range-picker.zoom-out-tooltip">
-      Time range zoom out <br /> CTRL+Z
+      Tijdbereik uitzoomen <br /> CTRL+Z
     </Trans>
   </>
 );
@@ -248,7 +248,7 @@ export const TimePickerTooltip = ({ timeRange, timeZone }: { timeRange: TimeRang
     <>
       {dateTimeFormat(timeRange.from, { timeZone })}
       <div className="text-center">
-        <Trans i18nKey="time-picker.range-picker.to">to</Trans>
+        <Trans i18nKey="time-picker.range-picker.to">tot</Trans>
       </div>
       {dateTimeFormat(timeRange.to, { timeZone })}
       <div className="text-center">
@@ -279,10 +279,21 @@ TimePickerButtonLabel.displayName = 'TimePickerButtonLabel';
 
 const formattedRange = (value: TimeRange, timeZone?: TimeZone, quickRanges?: TimeOption[]) => {
   const adjustedTimeRange = {
-    to: dateMath.isMathString(value.raw.to) ? value.raw.to : value.to,
-    from: dateMath.isMathString(value.raw.from) ? value.raw.from : value.from,
+    to: dateMath.isMathString(value.raw.to) ? value.raw.to.replace('now', 'nu') : value.to,
+    from: dateMath.isMathString(value.raw.from) ? value.raw.from.replace('now', 'nu') : value.from,
   };
-  return rangeUtil.describeTimeRange(adjustedTimeRange, timeZone, quickRanges);
+
+  let description = rangeUtil.describeTimeRange(adjustedTimeRange, timeZone, quickRanges);
+
+  // Additional Dutch replacements
+  description = description
+    .replace('now', 'nu')
+    .replace('Last', 'Laatste')
+    .replace('Next', 'Volgende')
+    .replace('Today', 'Vandaag')
+    .replace('Yesterday', 'Gisteren');
+
+  return description;
 };
 
 const getStyles = (theme: GrafanaTheme2) => {

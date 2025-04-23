@@ -68,7 +68,7 @@ describe('General Settings', () => {
       await userEvent.click(screen.getByTestId(selectors.components.TimeZonePicker.containerV2));
       const timeZonePicker = screen.getByTestId(selectors.components.TimeZonePicker.containerV2);
       await userEvent.click(byRole('combobox').get(timeZonePicker));
-      await selectOptionInTest(timeZonePicker, 'Browser Time');
+      await selectOptionInTest(timeZonePicker, 'Browser Tijd');
       expect(props.updateTimeZone).toHaveBeenCalledWith('browser');
       expect(props.dashboard.timezone).toBe('browser');
     });

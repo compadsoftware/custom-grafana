@@ -24,6 +24,9 @@ export function Body({ onChange, from, to, timeZone, weekStart }: TimePickerCale
   const styles = useStyles2(getBodyStyles);
   const weekStartValue = getWeekStart(weekStart);
 
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
+
   return (
     <Calendar
       selectRange={true}
@@ -32,6 +35,9 @@ export function Body({ onChange, from, to, timeZone, weekStart }: TimePickerCale
       className={styles.body}
       tileClassName={styles.title}
       value={value}
+      defaultActiveStartDate={new Date(currentYear, currentMonth, 1)}
+      minDate={new Date(1900, 0, 1)}
+      maxDate={new Date(2100, 0, 1)}
       nextLabel={<Icon name="angle-right" />}
       nextAriaLabel={t('time-picker.calendar.next-month', 'Next month')}
       prevLabel={<Icon name="angle-left" />}
@@ -165,7 +171,7 @@ export const getBodyStyles = (theme: GrafanaTheme2) => {
         border: '0px',
         color: theme.colors.primary.contrastText,
         fontWeight: theme.typography.fontWeightMedium,
-        background: theme.colors.primary.main,
+        background: theme.colors.primary.main,  
 
         abbr: {
           backgroundColor: theme.colors.primary.main,
