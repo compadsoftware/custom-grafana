@@ -46,8 +46,8 @@ interface InputState {
 }
 
 const ERROR_MESSAGES = {
-  default: () => t('time-picker.range-content.default-error', 'Please enter a past date or "now"'),
-  range: () => t('time-picker.range-content.range-error', '"From" can\'t be after "To"'),
+  default: () => t('time-picker.range-content.default-error', 'Voer een datum in het verleden in of "nu"'),
+  range: () => t('time-picker.range-content.range-error', '"Van" kan niet na "Tot" zijn'),
 };
 
 export const TimeRangeContent = (props: Props) => {
@@ -91,7 +91,10 @@ export const TimeRangeContent = (props: Props) => {
       return;
     }
 
-    const raw: RawTimeRange = { from: from.value, to: to.value };
+    const fromValue = from.value.replace(/^nu/, 'now');
+    const toValue = to.value.replace(/^nu/, 'now');
+
+    const raw: RawTimeRange = { from: fromValue, to: toValue };
     const timeRange = rangeUtil.convertRawToRange(raw, timeZone, fiscalYearStartMonth);
 
     onApplyFromProps(timeRange);
@@ -246,12 +249,21 @@ function valueToState(
   rawTo: DateTime | string,
   timeZone?: TimeZone
 ): [InputState, InputState] {
-  const fromValue = valueAsString(rawFrom, timeZone);
-  const toValue = valueAsString(rawTo, timeZone);
-  const fromInvalid = !isValid(fromValue, false, timeZone);
-  const toInvalid = !isValid(toValue, true, timeZone);
-  // If "To" is invalid, we should not check the range anyways
-  const rangeInvalid = isRangeInvalid(fromValue, toValue, timeZone) && !toInvalid;
+  // Get the string values
+  let fromValue = valueAsString(rawFrom, timeZone);
+  let toValue = valueAsString(rawTo, timeZone);
+
+  // Convert display values: "now" to "nu"
+  fromValue = fromValue.replace(/^now/, 'nu');
+  toValue = toValue.replace(/^now/, 'nu');
+
+  // Convert back to "now" for validation
+  const validateFrom = fromValue.replace(/^nu/, 'now');
+  const validateTo = toValue.replace(/^nu/, 'now');
+
+  const fromInvalid = !isValid(validateFrom, false, timeZone);
+  const toInvalid = !isValid(validateTo, true, timeZone);
+  const rangeInvalid = isRangeInvalid(validateFrom, validateTo, timeZone) && !toInvalid;
 
   return [
     {
@@ -291,4 +303,8 @@ function getStyles(theme: GrafanaTheme2) {
       paddingTop: theme.spacing(3),
     }),
   };
+}
+
+function replaceNowWithNu(value: string): string {
+  return value.replace(/^now/, 'nu');
 }

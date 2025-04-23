@@ -54,13 +54,13 @@ export class DashNavTimeControls extends Component<Props> {
   onChangeTimePicker = (timeRange: TimeRange) => {
     const { dashboard } = this.props;
     const panel = dashboard.timepicker;
-    const hasDelay = panel.nowDelay && timeRange.raw.to === 'now';
+    const hasDelay = panel.nowDelay && timeRange.raw.to === 'nu';
 
     const adjustedFrom = dateMath.isMathString(timeRange.raw.from) ? timeRange.raw.from : timeRange.from;
     const adjustedTo = dateMath.isMathString(timeRange.raw.to) ? timeRange.raw.to : timeRange.to;
     const nextRange = {
       from: adjustedFrom,
-      to: hasDelay ? 'now-' + panel.nowDelay : adjustedTo,
+      to: hasDelay ? 'nu-' + panel.nowDelay : adjustedTo,
     };
 
     getTimeSrv().setTime(nextRange);
@@ -133,7 +133,7 @@ export class DashNavTimeControls extends Component<Props> {
           tooltip={t('dashboard.toolbar.refresh', 'Refresh dashboard')}
           noIntervalPicker={hideIntervalPicker}
           showAutoInterval={true}
-          text={text}
+          text="Vernieuwen"
         />
       </>
     );

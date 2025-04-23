@@ -31,19 +31,19 @@ export interface Props {
 
 export class RefreshPicker extends PureComponent<Props> {
   static offOption = {
-    label: 'Off',
+    label: 'Uit',
     value: '',
-    ariaLabel: 'Turn off auto refresh',
+    ariaLabel: 'Automatisch vernieuwen uitschakelen',
   };
   static liveOption = {
     label: 'Live',
     value: 'LIVE',
-    ariaLabel: 'Turn on live streaming',
+    ariaLabel: 'Live streaming inschakelen',
   };
   static autoOption = {
     label: 'Auto',
     value: 'auto',
-    ariaLabel: 'Select refresh from the query range',
+    ariaLabel: 'Selecteer vernieuwen vanuit het query bereik',
   };
 
   static isLive = (refreshInterval?: string): boolean => refreshInterval === RefreshPicker.liveOption.value;
@@ -72,8 +72,9 @@ export class RefreshPicker extends PureComponent<Props> {
   }
 
   render() {
-    const { onRefresh, intervals, tooltip, value, text, isLoading, noIntervalPicker, width, showAutoInterval } =
-      this.props;
+    const { onRefresh, intervals, tooltip, value, isLoading, noIntervalPicker, width, showAutoInterval } = this.props;
+    const text = 'Vernieuwen';
+    const newWidth = width * 1.2;
 
     const currentValue = value || '';
     const variant = this.getVariant();
@@ -87,19 +88,12 @@ export class RefreshPicker extends PureComponent<Props> {
     }
 
     const durationAriaLabel = selectedValue.ariaLabel;
-    const ariaLabelDurationSelectedMessage = t(
-      'refresh-picker.aria-label.duration-selected',
-      'Choose refresh time interval with current interval {{durationAriaLabel}} selected',
-      { durationAriaLabel }
-    );
-    const ariaLabelChooseIntervalMessage = t(
-      'refresh-picker.aria-label.choose-interval',
-      'Auto refresh turned off. Choose refresh time interval'
-    );
+    const ariaLabelDurationSelectedMessage = `Kies vernieuwingsinterval met huidig interval ${durationAriaLabel} geselecteerd`;
+    const ariaLabelChooseIntervalMessage = 'Automatisch vernieuwen uitgeschakeld. Kies vernieuwingsinterval';
     const ariaLabel = selectedValue.value === '' ? ariaLabelChooseIntervalMessage : ariaLabelDurationSelectedMessage;
 
-    const tooltipIntervalSelected = t('refresh-picker.tooltip.interval-selected', 'Set auto refresh interval');
-    const tooltipAutoRefreshOff = t('refresh-picker.tooltip.turned-off', 'Auto refresh off');
+    const tooltipIntervalSelected = 'Stel automatisch vernieuwingsinterval in';
+    const tooltipAutoRefreshOff = 'Automatisch vernieuwen uitgeschakeld';
     const tooltipAutoRefresh = selectedValue.value === '' ? tooltipAutoRefreshOff : tooltipIntervalSelected;
 
     return (
@@ -110,7 +104,7 @@ export class RefreshPicker extends PureComponent<Props> {
           onClick={onRefresh}
           variant={variant}
           icon={isLoading ? 'spinner' : 'sync'}
-          style={width ? { width } : undefined}
+          style={newWidth ? { newWidth } : undefined}
           data-testid={selectors.components.RefreshPicker.runButtonV2}
         >
           {text}
@@ -121,7 +115,7 @@ export class RefreshPicker extends PureComponent<Props> {
               borderTopLeftRadius: 0,
               borderBottomLeftRadius: 0,
             })}
-            value={selectedValue}
+            value={currentValue}
             options={options}
             onChange={this.onChangeSelect}
             variant={variant}
@@ -139,21 +133,21 @@ export function translateOption(option: string) {
   switch (option) {
     case RefreshPicker.liveOption.value:
       return {
-        label: t('refresh-picker.live-option.label', 'Live'),
+        label: 'Live',
         value: option,
-        ariaLabel: t('refresh-picker.live-option.aria-label', 'Turn on live streaming'),
+        ariaLabel: 'Live streaming inschakelen',
       };
     case RefreshPicker.offOption.value:
       return {
-        label: t('refresh-picker.off-option.label', 'Off'),
+        label: 'Uit',
         value: option,
-        ariaLabel: t('refresh-picker.off-option.aria-label', 'Turn off auto refresh'),
+        ariaLabel: 'Automatisch vernieuwen uitschakelen',
       };
     case RefreshPicker.autoOption.value:
       return {
-        label: t('refresh-picker.auto-option.label', RefreshPicker.autoOption.label),
+        label: 'Auto',
         value: option,
-        ariaLabel: t('refresh-picker.auto-option.aria-label', RefreshPicker.autoOption.ariaLabel),
+        ariaLabel: 'Selecteer vernieuwen vanuit het query bereik',
       };
   }
   return {

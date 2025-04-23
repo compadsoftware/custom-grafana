@@ -32,7 +32,7 @@ export function QueryVariableRefreshSelect({ onChange, refresh, testId }: PropsW
   );
 
   return (
-    <Field label="Refresh" description="When to update the values of this variable" data-testid={testId}>
+    <Field label="Vernieuwen" description="When to update the values of this variable" data-testid={testId}>
       <RadioButtonGroup
         options={REFRESH_OPTIONS}
         onChange={onChange}

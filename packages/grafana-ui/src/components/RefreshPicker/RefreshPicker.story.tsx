@@ -44,7 +44,7 @@ export const Examples: StoryFn<typeof RefreshPicker> = (args) => {
     <RefreshPicker
       tooltip={args.tooltip}
       value={args.value}
-      text={args.text}
+      text="Vernieuwen"
       isLoading={args.isLoading}
       intervals={args.intervals}
       width={args.width}

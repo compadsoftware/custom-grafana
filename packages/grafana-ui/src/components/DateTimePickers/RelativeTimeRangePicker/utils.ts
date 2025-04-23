@@ -73,15 +73,15 @@ const units: Record<string, number> = {
 
 const secondsToRelativeFormat = (seconds: number): string => {
   if (seconds === 0) {
-    return 'now';
+    return 'nu';
   }
 
   const absoluteSeconds = Math.abs(seconds);
   if (seconds < 0) {
-    return `now+${formatDuration(absoluteSeconds)}`;
+    return `nu+${formatDuration(absoluteSeconds)}`;
   }
 
-  return `now-${formatDuration(absoluteSeconds)}`;
+  return `nu-${formatDuration(absoluteSeconds)}`;
 };
 
 /**
